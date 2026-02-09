@@ -27,7 +27,7 @@ namespace _02_09_TL_tombok
 					nyertes = rnd.Next(0, 100);
 					bool fut = true;
 					int szamlalo = 0;
-					while(fut)
+					while(fut && szamlalo < 5)
 					{
 						if (seged[szamlalo] == nyertes)
 						{
@@ -100,6 +100,11 @@ namespace _02_09_TL_tombok
 
 			int[] kodtable = Kodolas(szoveg);
 
+			for (int i = 0; i < kodtable.Length; i++)
+			{
+				Console.Write($"{kodtable[i]} ");
+			}
+            Console.WriteLine();
 			string dekodolt = Dekodolo(kodtable);
 
 			Console.WriteLine(dekodolt);
@@ -253,24 +258,195 @@ namespace _02_09_TL_tombok
 		#region F04 Akasztófa
 		static void F04()
 		{
-			string[] sorok = new string[6];
-			Console.WriteLine(sorok[0]);
-			Console.WriteLine(sorok[1]);
-			Console.WriteLine(sorok[2]);
-			Console.WriteLine(sorok[3]);
-			Console.WriteLine(sorok[4]);
-			Console.WriteLine(sorok[5]);
+			Random rnd = new Random();
+            string[] kirajzolas = new string[6];
 
+            string[] rajz = new string[15];
+			rajz[14] = "/";
+			rajz[13] = "-";
+			rajz[12] = "\\";
+			rajz[11] = " |";
+			rajz[10] = " |     ";
+            rajz[9] = " |     ";
+            rajz[8] = " |      ";
+            rajz[7] = " |";
+			rajz[6] = "------|";
+            rajz[5] = "o";
+            rajz[4] = "/";
+            rajz[3] = "|";
+            rajz[2] = "\\";
+			rajz[1] = "/ ";
+			rajz[0] = "\\";
+
+			string[] szavak = new string[10];
+			szavak[0] = "tehén";
+			szavak[1] = "teve";
+			szavak[2] = "bálna";
+			szavak[3] = "tigris";
+            szavak[4] = "giráf";
+            szavak[5] = "elefánt";
+            szavak[6] = "kengorú";
+            szavak[7] = "hiéna";
+            szavak[8] = "leopárd";
+            szavak[9] = "vidra";
+
+			bool jatek = true;
+			int tippek_szama = 15;
+			bool nyert = false;
+
+            string kereset_szo = szavak[rnd.Next(0, szavak.Length)];
+            char[] epulo_szo = new char[kereset_szo.Length];
+			for (int i = 0; i < kereset_szo.Length; i++)
+			{
+				epulo_szo[i] = '_';
+			}
+
+			string hibas_talalatok = "";
+
+            while (jatek)
+			{
+                Console.Clear();
+                Console.WriteLine("Akasztófa jaték!");
+                Console.WriteLine($"Találd ki a szót amire gonolt a játék {rajz.Length} tippből hogy nyerj!");
+                Console.WriteLine();
+
+                Console.WriteLine(kirajzolas[0]);
+                Console.WriteLine(kirajzolas[1]);
+                Console.WriteLine(kirajzolas[2]);
+                Console.WriteLine(kirajzolas[3]);
+                Console.WriteLine(kirajzolas[4]);
+                Console.WriteLine(kirajzolas[5]);
+                Console.WriteLine();
+
+                if (kereset_szo == new string(epulo_szo))
+                {
+                    jatek = false;
+                    nyert = true;
+                    Console.WriteLine($"Gratulálunk nyertél, a szó '{kereset_szo}' volt!");
+                }
+
+                if (tippek_szama == 0 && !nyert)
+                {
+                    jatek = false;
+                    Console.WriteLine($"Vesztetél, a szó '{kereset_szo}' volt!");
+                }
+
+				if (jatek && !nyert)
+				{
+					Console.Write($"A szó: '");
+					for (int i = 0; i < epulo_szo.Length; i++)
+					{
+						Console.Write(epulo_szo[i]);
+					}
+					Console.WriteLine($"', rendelkezésre állő hibás tippek: {tippek_szama}");
+					Console.WriteLine($"Hibás találatok: {hibas_talalatok}");
+					Console.Write("Adj meg egy betűt: ");
+					string be = Console.ReadLine();
+					be.ToLower();
+					char tipp = be[0];
+
+
+					if (kereset_szo.Contains(tipp))
+					{
+						for (int i = 0; i < kereset_szo.Length; i++)
+						{
+							if (kereset_szo[i] == tipp)
+							{
+								epulo_szo[i] = tipp;
+							}
+						}
+						Console.WriteLine($"Helyes találat, a(z) '{tipp}' szerep a szóban!");
+						Console.WriteLine();
+					}
+					else
+					{
+						Console.WriteLine($"A tipp helytelen, a(z) '{tipp}' nem szerep a szóban!");
+						Console.WriteLine();
+						hibas_talalatok += tipp + ", ";
+						tippek_szama--;
+
+						switch (tippek_szama)
+						{
+							case 0:
+								kirajzolas[3] += rajz[0];
+								break;
+							case 1:
+								kirajzolas[3] += rajz[1];
+								break;
+
+							case 2:
+								kirajzolas[2] += rajz[2];
+								break;
+
+							case 3:
+								kirajzolas[2] += rajz[3];
+								break;
+
+							case 4:
+								kirajzolas[2] += rajz[4];
+								break;
+
+							case 5:
+								kirajzolas[1] += rajz[5];
+								break;
+
+							case 6:
+								kirajzolas[0] += rajz[6];
+								break;
+
+							case 7:
+								kirajzolas[0] += rajz[7];
+								break;
+
+							case 8:
+								kirajzolas[1] += rajz[8];
+								break;
+
+							case 9:
+								kirajzolas[2] += rajz[9];
+								break;
+
+							case 10:
+								kirajzolas[3] += rajz[10];
+								break;
+
+							case 11:
+								kirajzolas[4] += rajz[11];
+								break;
+
+							case 12:
+								kirajzolas[5] += rajz[12];
+								break;
+
+							case 13:
+								kirajzolas[5] += rajz[13];
+								break;
+
+							case 14:
+								kirajzolas[5] += rajz[14];
+								break;
+
+							default:
+								break;
+						}
+					}
+				}
+			}
 
 		}
 		#endregion
 
 		static void Main(string[] args)
 		{
-			F01();
-			F02();
+			//F01();
+            Console.WriteLine();
+			//F02();
+            Console.WriteLine();
 			//F03(szavak, magyarazatok);
+            Console.WriteLine();
 			F04();
+
+			Console.ReadKey();
 		}
 	}
 }
