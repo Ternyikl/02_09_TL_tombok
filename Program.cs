@@ -25,13 +25,16 @@ namespace _02_09_TL_tombok
 				{
 					szerepel = false;
 					nyertes = rnd.Next(0, 100);
-					for( int j = 0; j < seged.Length; j++)
+					bool fut = true;
+					int szamlalo = 0;
+					while(fut)
 					{
-						if( seged[j] == nyertes )
+						if (seged[szamlalo] == nyertes)
 						{
 							szerepel = true;
-							break;
+							fut = false;
 						}
+						szamlalo++;
 					}
 				} while (szerepel);
 				seged[i] = nyertes;
@@ -143,12 +146,15 @@ namespace _02_09_TL_tombok
 				}
 				else
 				{
-					for (int i = 0; i < szavak.Length; i++)
+					bool fut = true;
+					int index = 0;
+					while(fut)
 					{
-						if(szavak[i] == "")
+						if (szavak[index] == "")
 						{
-							szavak[i] = szo;
-							magyarazatok[i] = magy;
+							szavak[index] = szo;
+							magyarazatok[index] = magy;
+							fut = false;
 						}
 					}
 					Console.WriteLine($"A {szo} sikeresen hozzá let adva a szótáthoz!");
@@ -159,7 +165,56 @@ namespace _02_09_TL_tombok
 				Console.WriteLine("A szótár tele van, töröni kell hogy új elemet adhasunk meg!");
 			}
 		}
-		static void F03()
+		static void KeresSzotarban(string[] szavak, string[] magyarazatok)
+		{
+			Console.Write("Kérem adja meg a kereset szót: ");
+			string szo = Console.ReadLine();
+			szo.ToLower();
+
+			int kereset = Array.IndexOf(szavak, szo);
+
+			if (kereset != -1)
+			{
+				Console.WriteLine($"{szo} magyarázata: {magyarazatok[kereset]}");
+			}
+			else
+			{
+				Console.Write($"{szo} nem szerepel a szótárban.");
+			}
+		}
+		static void SzotarbolTorol(string[] szavak, string[] magyarazatok)
+		{
+			Console.Write("Kérem adja meg a törölni kivánt szót: ");
+			string szo = Console.ReadLine();
+			szo.ToLower();
+
+			int kereset = Array.IndexOf(szavak, szo);
+
+			if (kereset != -1)
+			{
+				szavak[kereset] = "";
+				magyarazatok[kereset] = "";
+			}
+			else
+			{
+				Console.Write($"{szo} nem szerepel a szótárban.");
+			}
+		}
+		static void KeresSzooredekAlajan(string[] szavak, string[] magyarazatok)
+		{
+			Console.Write("Kérem adja meg a kereset szót töredéket: ");
+			string szotor = Console.ReadLine();
+			szotor.ToLower();
+
+			foreach (var item in szavak)
+			{
+				if (item.Contains(szotor))
+				{
+					Console.WriteLine(item);
+				}
+			}
+		}
+		static void F03(string[] szavak, string[] magyarazatok)
 		{
 			bool program_fut = true;
 			
@@ -175,12 +230,15 @@ namespace _02_09_TL_tombok
 						break;
 
 					case "keres":
+						KeresSzotarban(szavak, magyarazatok);
 						break;
 
 					case "del":
+						SzotarbolTorol(szavak, magyarazatok);
 						break;
 
 					case "kerest":
+						KeresSzooredekAlajan(szavak, magyarazatok);
 						break;
 
 					case "exit":
