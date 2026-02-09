@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,6 +9,7 @@ namespace _02_09_TL_tombok
 {
 	internal class Program
 	{
+		
 		#region F01 Karneváli tombola
 		static string[] TombolaSorsolas(int[] sorjegyek, string[] nyeremenyek )
 		{
@@ -102,20 +104,88 @@ namespace _02_09_TL_tombok
 		#endregion
 
 		#region F03 Szótárkezelő program
+		static string[] szavak = new string[100];
+		static string[] magyarazatok = new string[100];
+		static bool Tele()
+		{
+			int hossz = 0;
+			foreach (var item in szavak)
+			{
+				if (item != "")
+				{
+					hossz++;
+				}
+			}
+
+			if(hossz> szavak.Length)
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+		static void SzotarHozzaad(string[] szavak, string[] magyarazatok)
+		{
+			Console.Write("Adja meg az új szót: ");
+			string szo = Console.ReadLine();
+			szo.ToLower();
+
+			Console.Write("Adja meg az új szó magyarázattát: ");
+			string magy = Console.ReadLine();
+
+			if (Tele())
+			{
+				if (szavak.Contains(szo))
+				{
+					Console.WriteLine($"A megadott szó {szo} már szerepel a szótárban!");
+				}
+				else
+				{
+					for (int i = 0; i < szavak.Length; i++)
+					{
+						if(szavak[i] == "")
+						{
+							szavak[i] = szo;
+							magyarazatok[i] = magy;
+						}
+					}
+					Console.WriteLine($"A {szo} sikeresen hozzá let adva a szótáthoz!");
+				}
+			}
+			else
+			{
+				Console.WriteLine("A szótár tele van, töröni kell hogy új elemet adhasunk meg!");
+			}
+		}
 		static void F03()
 		{
-			string[] szavak = new string[100];
-			string[] magyarázatok = new string[100];
 			bool program_fut = true;
 			
 			while(program_fut)
 			{
-				Console.WriteLine("Kérem adja meg az utasítást, létező utasítások:\n\tSzó hozzáadása a szótárhoz: 'Add'\n\tSzó keresése a szótárban: 'Keres'\n\tSzó törlése: 'Del'\n\tSzótöredékkel való keresés: 'KeresT'");
+				Console.WriteLine("Kérem adja meg az utasítást, létező utasítások:\n\tSzó hozzáadása a szótárhoz: 'Add'\n\tSzó keresése a szótárban: 'Keres'\n\tSzó törlése: 'Del'\n\tSzótöredékkel való keresés: 'KeresT'\n\tHa ki szeretne lépni: 'Exit'");
 				string be = Console.ReadLine();
-
+				be.ToLower();
 				switch(be)
 				{
-					case "Add":
+					case "add":
+						SzotarHozzaad(szavak, magyarazatok);
+						break;
+
+					case "keres":
+						break;
+
+					case "del":
+						break;
+
+					case "kerest":
+						break;
+
+					case "exit":
+						Console.WriteLine("kilépés...");
+						program_fut = false;
 						break;
 
 					default:
