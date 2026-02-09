@@ -250,11 +250,27 @@ namespace _02_09_TL_tombok
 		}
 		#endregion
 
+		#region F04 Akasztófa
+		static void F04()
+		{
+			string[] sorok = new string[6];
+			Console.WriteLine(sorok[0]);
+			Console.WriteLine(sorok[1]);
+			Console.WriteLine(sorok[2]);
+			Console.WriteLine(sorok[3]);
+			Console.WriteLine(sorok[4]);
+			Console.WriteLine(sorok[5]);
+
+
+		}
+		#endregion
+
 		static void Main(string[] args)
 		{
 			F01();
 			F02();
-			F03(szavak, magyarazatok);
+			//F03(szavak, magyarazatok);
+			F04();
 		}
 	}
 }
