@@ -110,8 +110,18 @@ namespace _02_09_TL_tombok
 			
 			while(program_fut)
 			{
-				Console.WriteLine("Kérem adja meg az utasítást: ");
+				Console.WriteLine("Kérem adja meg az utasítást, létező utasítások:\n\tSzó hozzáadása a szótárhoz: 'Add'\n\tSzó keresése a szótárban: 'Keres'\n\tSzó törlése: 'Del'\n\tSzótöredékkel való keresés: 'KeresT'");
 				string be = Console.ReadLine();
+
+				switch(be)
+				{
+					case "Add":
+						break;
+
+					default:
+						Console.WriteLine("A megadott parancs nem létezik!");
+						break;
+				}
 ;			}
 		}
 		#endregion
