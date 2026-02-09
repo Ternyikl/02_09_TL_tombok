@@ -146,17 +146,13 @@ namespace _02_09_TL_tombok
 				}
 				else
 				{
-					bool fut = true;
 					int index = 0;
-					while(fut)
+					while(szavak[index] != "")
 					{
-						if (szavak[index] == "")
-						{
-							szavak[index] = szo;
-							magyarazatok[index] = magy;
-							fut = false;
-						}
+						index++;
 					}
+					szavak[index] = szo;
+					magyarazatok[index] = magy;
 					Console.WriteLine($"A {szo} sikeresen hozzá let adva a szótáthoz!");
 				}
 			}
@@ -256,9 +252,9 @@ namespace _02_09_TL_tombok
 
 		static void Main(string[] args)
 		{
-			//F01();
-			//F02();
-			F03();
+			F01();
+			F02();
+			F03(szavak, magyarazatok);
 		}
 	}
 }
