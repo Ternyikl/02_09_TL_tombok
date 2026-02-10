@@ -438,11 +438,11 @@ namespace _02_09_TL_tombok
 
 		static void Main(string[] args)
 		{
-			//F01();
+			F01();
             Console.WriteLine();
-			//F02();
+			F02();
             Console.WriteLine();
-			//F03(szavak, magyarazatok);
+			F03(szavak, magyarazatok);
             Console.WriteLine();
 			F04();
 
